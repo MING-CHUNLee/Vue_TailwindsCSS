@@ -1,36 +1,49 @@
 
+<!--eslint-disable  -->
 <template>
-  <div class="
+  <div
+    class="
       bg-gradient-to-tr
       from-emerald-500
       to-teal-300
       min-h-screen
       flex
       justify-center
-    ">
+    "
+  >
     <div class="bg-white divide-y shadow-lg rounded-lg m-8">
       <div class="m-8">
         <!-- 上面 -->
         <div>
-          <h1 class="
+          <h1
+            class="
               text-emerald-400 text-2xl
               font-bold
               text-center
               tracking-wider
-            ">
+            "
+          >
             BMI計算器
           </h1>
           <div class="mt-6">
             <label class="inline-block mb-1 text-gray-400">身高</label>
             <div class="px-3 py-1.5 border border-emerald-300 rounded-md">
-              <input class="focus:outline-none mr-1.5" type="number" v-model="height" />
+              <input
+                class="focus:outline-none mr-1.5"
+                type="number"
+                v-model="height"
+              />
               <span class="shrink-0 text-emerald-400 select-none">公分</span>
             </div>
           </div>
           <div class="mt-6">
             <label class="inline-block mb-1 text-gray-400">體重</label>
             <div class="px-3 py-1.5 border border-emerald-300 rounded-md">
-              <input class="focus:outline-none mr-1.5" type="number" v-model="weight" />
+              <input
+                class="focus:outline-none mr-1.5"
+                type="number"
+                v-model="weight"
+              />
               <span class="shrink-0 text-emerald-400 select-none">公斤</span>
             </div>
           </div>
@@ -40,7 +53,8 @@
         <div class="mt-6 text-center text-gray-400">
           {{ bmi }}
         </div>
-        <div class="
+        <div
+          class="
             mt-6
             py-1.5
             text-center
@@ -50,10 +64,12 @@
             ring-1 ring-amber-500/30
             rounded-md
             shadow-lg shadow-amber-200
-          " v-if="result==='體重過輕'">
+          "
+        >
           你的體重是「過輕」
         </div>
-        <div class="
+        <div
+          class="
             mt-6
             py-1.5
             text-center
@@ -63,10 +79,12 @@
             ring-1 ring-green-500/30
             rounded-md
             shadow-lg shadow-green-200
-          " v-if="result==='體重正常'">
+          "
+        >
           你的體重是「正常」
         </div>
-        <div class="
+        <div
+          class="
             mt-6
             py-1.5
             text-center
@@ -76,10 +94,12 @@
             ring-1 ring-amber-500/30
             rounded-md
             shadow-lg shadow-amber-200
-          "  v-if="result==='過重'">
+          "
+        >
           你的體重是「過重」
         </div>
-        <div class="
+        <div
+          class="
             mt-6
             py-1.5
             text-center
@@ -89,10 +109,12 @@
             ring-1 ring-orange-500/30
             rounded-md
             shadow-lg shadow-orange-200
-          " v-if="result==='輕度肥胖'">
+          "
+        >
           你的體重是「輕度肥胖」
         </div>
-        <div class="
+        <div
+          class="
             mt-6
             py-1.5
             text-center
@@ -102,10 +124,12 @@
             ring-1 ring-pink-500/30
             rounded-md
             shadow-lg shadow-pink-200
-          "  v-if="result==='中度肥胖'">
+          "
+        >
           你的體重是「中度肥胖」
         </div>
-        <div class="
+        <div
+          class="
             mt-6
             py-1.5
             text-center
@@ -115,7 +139,8 @@
             ring-1 ring-red-500/30
             rounded-md
             shadow-lg shadow-red-200
-          " v-if="result==='重度肥胖'">
+          "
+        >
           你的體重是「重度肥胖」
         </div>
       </div>
@@ -153,36 +178,48 @@
   </div>
 </template>
 
-<script setup>
-import {ref,computed} from 'vue'
-    const height=ref("")
-    const weight=ref("")
-    const bmi=computed(()=>{
-      if (!weight.value || !height.value) {
-        return "?";
-      } else {
+<script>
+// JS
+export default {
+  data() {
+    return {
+      height: "",
+      weight: "",
+    };
+  },
+  computed: {
+    bmi() {
+      console.log("高"+this.height );
+      console.log(this.weight );
+      if (!this.height || !this.weight) {
+         console.log("AAAAA"+typeof(this.weight) );
+          return "?";
+      }else{
         return (
-          weight.value /
-          ((height.value / 100) * (height.value / 100))
-        ).toFixed(1);
+         ( this.weight / ((this.height / 100) * (this.height / 100))).toFixed(1)
+        );
       }
-    })
-    const result=computed(()=>{
-      const bmiValue = Number(bmi.value);
-      if (bmiValue < 18.5) {
-        return "過輕";
-      } else if (bmiValue >= 18.5 && bmiValue < 24) {
-        return "正常";
-      } else if (bmiValue >= 24 && bmiValue < 27) {
+      
+    },
+    result() {
+      const bmi = Number(this.bmi);
+      if (bmi < 18.5) {
+        return "體重過輕";
+      } else if (bmi >= 18.5 && bmi < 24) {
+        return "體重正常";
+      } else if (bmi >= 24 && bmi < 27) {
         return "過重";
-      } else if (bmiValue >= 27 && bmiValue < 30) {
+      } else if (bmi >= 27 && bmi < 30) {
         return "輕度肥胖";
-      } else if (bmiValue >= 30 && bmiValue < 35) {
+      } else if (bmi >= 30 && bmi < 35) {
         return "中度肥胖";
-      } else {
-        return "重度肥胖";
       }
-    })
+
+      return "重度肥胖";
+    },
+  },
+};
 </script>
+
 
 
